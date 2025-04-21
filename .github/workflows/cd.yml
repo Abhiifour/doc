@@ -34,4 +34,4 @@ jobs:
           port: 22
           script: |
             echo "inside vm"
-            sudo docker stop app && sudo docker run --name app -d -p 3000:3000 abhiifour/first-app:${{ github.sha }}
+            sudo docker rm -f app && sudo docker run --name app -d -p 3000:3000 abhiifour/first-app:${{ github.sha }}
