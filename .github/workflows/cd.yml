@@ -24,3 +24,10 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: abhiifour/first-app:${{ github.sha }}
+    
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1
+        with:
+          host: 51.21.192.107
+          username: ubuntu
+          key: ${{ secrets.PRIVATE_SSH_KEY }}
