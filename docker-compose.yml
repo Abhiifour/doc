@@ -1,17 +1,28 @@
 services:
-  mongo:
-    image: mongo
-    container_name: mongo
+  postgres:
+    image:  postgres:15
+    container_name: postgres
     ports:
-      - 27017:27017
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
   
   app:
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
     container_name: app
     ports:
       - 3000:3000
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/mydb?schema=sample
     depends_on:
-      - mongo
+      - postgres
+
+volumes:
+  db_data:
     
